@@ -3,40 +3,44 @@ var postcss = require('postcss');
 module.exports = postcss.plugin('postcss-transform-shortcut', function (opts) {
 	opts = opts || {};
 
-	var matchDecl = /^(rotate|scale|translate)$/i;
-
 	var defaults = {
 		rotate: [0, 0, 1],
 		scale: [1, 1, 1],
-		translate: [0, 0, 0]
+		translate: ['0px', '0px', '0px']
 	};
+
+	var splice = Array.prototype.splice;
 
 	return function (css) {
 		css.eachRule(function (rule) {
-			var transformDecl;
-			var transformDeclValues = [];
+			var transform;
+			var transformValues = [];
+			var index = -1;
+			var node;
 
-			rule.nodes.slice(0).forEach(function (decl) {
-				if (decl.type === 'decl' && matchDecl.test(decl.prop)) {
-					transformDecl = transformDecl || decl.cloneBefore({
-						prop: 'transform',
-						value: ''
+			while (node = rule.nodes[++index]) {
+				if (!transform && node.prop === 'transform') {
+					transform = node;
+					transformValues = postcss.list.space(node.value);
+				} else if (/^(rotate|scale|translate)$/.test(node.prop)) {
+					transform = transform || node.cloneBefore({
+						prop: 'transform'
 					});
 
-					var value = defaults[decl.prop].slice(0);
-					var values = postcss.list.space(decl.value);
+					var oldValues = postcss.list.space(node.value);
+					var newValues = defaults[node.prop].slice(0);
 
-					value.splice.apply(value, [0, values.length].concat(values));
+					splice.apply(newValues, [0, oldValues.length].concat(oldValues));
 
-					var name = decl.prop + (values > 2 ? '3d' : '');
+					transformValues.push(node.prop + '3d(' + newValues.join(',') + ')');
 
-					transformDeclValues.push(name + '(' + value.join(',') + ')');
+					node.removeSelf();
 
-					decl.removeSelf();
+					--index;
 				}
-			});
+			}
 
-			transformDecl.value = transformDeclValues.join(' ');
+			transform.value = transformValues.join(' ');
 		});
 	};
 });
