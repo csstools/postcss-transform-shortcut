@@ -76,5 +76,6 @@ grunt.initConfig({
 
 [ci]: https://travis-ci.org/jonathantneal/postcss-transform-shortcut
 [ci-img]: https://travis-ci.org/jonathantneal/postcss-transform-shortcut.svg
+[Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
 [PostCSS]: https://github.com/postcss/postcss
 [PostCSS Transform Shortcut]: https://github.com/jonathantneal/postcss-transform-shortcut
