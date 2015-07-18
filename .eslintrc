@@ -5,6 +5,7 @@
 		"no-reserved-keys":      [2],
 		"no-multi-spaces":       [0],
 		"no-extra-parens":       [2],
+		"no-cond-assign":        [0],
 		"no-unused-vars":        [2],
 		"no-loop-func":          [0],
 		"key-spacing":           [0],
