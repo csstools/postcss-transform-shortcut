@@ -1,0 +1,36 @@
+{
+	"name": "postcss-transform-shortcut",
+	"version": "0.0.0",
+	"description": "PostCSS plugin that allows you to use shorthand transform properties in CSS",
+	"keywords": [
+		"postcss",
+		"css",
+		"postcss-plugin",
+		"transform",
+		"translate",
+		"rotate",
+		"scale"
+	],
+	"author": "Jonathan Neal <jonathantneal@hotmail.com>",
+	"license": "CC0-1.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jonathantneal/postcss-transform-shortcut.git"
+	},
+	"bugs": {
+		"url": "https://github.com/jonathantneal/postcss-transform-shortcut/issues"
+	},
+	"homepage": "https://github.com/jonathantneal/postcss-transform-shortcut",
+	"dependencies": {
+		"postcss": "^4.1.13"
+	},
+	"devDependencies": {
+		"chai": "^3.0.0",
+		"gulp": "^3.9.0",
+		"gulp-eslint": "^0.14.0",
+		"gulp-mocha": "^2.1.2"
+	},
+	"scripts": {
+		"test": "gulp"
+	}
+}
