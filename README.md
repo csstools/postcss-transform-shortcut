@@ -4,7 +4,7 @@
 
 [PostCSS Transform Shortcut] is a [PostCSS] plugin that allows you to use shorthand transform properties in CSS.
 
-It is based on a [W3C mailing list thread](https://lists.w3.org/Archives/Public/www-style/2014Jul/0315.html).
+It is based on the [CSS Transform Module Level 2 Specification](http://drafts.csswg.org/css-transforms-2/).
 
 ```css
 /* before */
