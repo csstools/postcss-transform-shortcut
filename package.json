@@ -1,6 +1,6 @@
 {
 	"name": "postcss-transform-shortcut",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "PostCSS plugin that allows you to use shorthand transform properties in CSS",
 	"keywords": [
 		"postcss",
