@@ -30,6 +30,20 @@ The `scale` property accepts 1-3 values, each specifying a scale along one axis,
 
 The `translate` property accepts 1-3 values, each specifying a translation against one axis, in the order X, Y, then Z. Unspecified translations default to `0px`.
 
+## Caveat
+
+Once these new properties are supported natively, you can also use them to style transforms across multiple rules without overwriting a previous rule’s transforms. Unfortunately, I cannot predict how your CSS rules will be inherited without also knowing your DOM. Therefore, this particularly useful feature cannot be simulated at this time.
+
+```css
+.button {
+    rotate: 45deg;
+}
+
+.button--warn {
+    scale: 2;
+}
+```
+
 ## Usage
 
 You just need to follow these two steps to use [PostCSS Transform Shortcut]:
