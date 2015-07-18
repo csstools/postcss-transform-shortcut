@@ -10,31 +10,27 @@ It is based on the [CSS Transform Module Level 2 Specification](http://drafts.cs
 /* before */
 
 .transform {
+    transform: skewX(25deg);
     rotate: 180deg;
-    scale: 0.5;
+    scale: 2 2;
     translate: 10px 10px;
 }
 
 /* after */
 
 .transform {
-    transform: rotate(180deg) scale(0.5) translate(10px,10px);
+    transform: skewX(25deg) rotate3d(180deg,0,1) scale3d(2,2,1) translate3d(10px,10px,0px);
 }
 
 ```
 
-### Translate
+The `translate`, `rotate`, and `scale` properties allow authors to specify simple transforms independently, in a way that maps to typical user interface usage, rather than having to remember the order in transform that keeps the actions of `transform()`, `rotate()` and `scale()` independent and acting in screen coordinates.
 
-`translate` `<length>` `{1,3}`: Specifies a translation in the X, Y, and Z axises, respectively. Missing values default to 0.
+The `rotate` property accepts an angle to rotate an element, and optionally an axis to rotate it around, specified as the X, Y, and Z lengths of an origin-anchored vector. If the axis is unspecified, it defaults to `0 0 1`, causing a "2d rotation" in the plane of the screen.
 
-### Rotate
+The `scale` property accepts 1-3 values, each specifying a scale along one axis, in order X, Y, then Z. Unspecified scales default to `1`.
 
-`rotate` `<angle> <number>{3}? <'transform-origin'>?`: Specifies a rotation along a given axis from a given origin. An omitted axis defaults to 0,0,1; an omitted origin defaults to 'transform-origin's initial value.
-
-### Scale
-
-`translate` `<number>{1,3} <'transform-origin'>?`: Specifies a scale in the X, Y, and Z axises, respectively, from a given origin. Missing values default to 1; an omitted origin default
-to 'transform-origin's initial value.
+The `translate` property accepts 1-3 values, each specifying a translation against one axis, in the order X, Y, then Z. Unspecified translations default to `0px`.
 
 ## Usage
 
