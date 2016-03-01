@@ -9,8 +9,8 @@ module.exports = postcss.plugin('postcss-transform-shortcut', function (opts) {
 		translate: ['0px', '0px', '0px']
 	};
 
-	var splice = Array.prototype.splice,
-			slice = Array.prototype.slice;
+	var splice = Array.prototype.splice;
+	var slice = Array.prototype.slice;
 
 	return function (css) {
 		css.walkRules(function (rule) {
