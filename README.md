@@ -93,3 +93,20 @@ grunt.initConfig({
 [Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
 [PostCSS]: https://github.com/postcss/postcss
 [PostCSS Transform Shortcut]: https://github.com/jonathantneal/postcss-transform-shortcut
+
+### Gulp
+
+Run `npm install gulp-postcss postcss-transform-shortcut` and setup a gulp task like so:
+
+```js
+var gulp = require( 'gulp' );
+var postcss = require( 'gulp-postcss' );
+var independentTransforms = require('postcss-transform-shortcut');
+
+gulp.task( 'css', function() {
+    gulp.src( 'css-next.css' )
+        .pipe( postcss([independentTransforms]) )
+        .pipe( gulp.dest( 'build/' ) )
+});
+
+```
