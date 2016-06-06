@@ -40,8 +40,10 @@ module.exports = postcss.plugin('postcss-transform-shortcut', function (opts) {
 					--index;
 				}
 			}
-
-			transform.value = transformValues.join(' ');
+			
+			if (transform) {
+				transform.value = transformValues.join(' ');
+			}
 		});
 	};
 });
