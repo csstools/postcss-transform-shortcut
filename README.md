@@ -1,8 +1,8 @@
 # PostCSS Transform Shortcut [![Build Status][ci-img]][ci]
 
-<img align="right" width="135" height="95" src="http://postcss.github.io/postcss/logo-leftp.png" title="Philosopher’s stone, logo of PostCSS">
+<img align="right" width="135" height="95" src="https://postcss.github.io/postcss/logo-leftp.png" title="Philosopher’s stone, logo of PostCSS">
 
-[PostCSS Transform Shortcut] is a [PostCSS] plugin that allows you to use shorthand transform properties in CSS, following the [CSS Transform Module Level 2 Specification](http://drafts.csswg.org/css-transforms-2/).
+[PostCSS Transform Shortcut] is a [PostCSS] plugin that allows you to use shorthand transform properties in CSS, following the [CSS Transform Module Level 2 Specification](https://drafts.csswg.org/css-transforms-2/).
 
 ```css
 /* before */
