@@ -1,0 +1,6 @@
+.combo {
+	transform: rotate(90deg);
+	rotate: 180deg;
+	scale: 0.5 0.5;
+	translate: 10px 10px;
+}

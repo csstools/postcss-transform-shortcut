@@ -1,23 +1,27 @@
-# PostCSS Transform Shortcut [![Build Status][ci-img]][ci]
+# Transform Shortcut <a href="https://github.com/postcss/postcss"><img src="https://postcss.github.io/postcss/logo.svg" alt="PostCSS Logo" width="90" height="90" align="right"></a>
 
-<img align="right" width="135" height="95" src="https://postcss.github.io/postcss/logo-leftp.png" title="Philosopher’s stone, logo of PostCSS">
+[![NPM Version][npm-img]][npm-url]
+[![Build Status][cli-img]][cli-url]
+[![Licensing][lic-image]][lic-url]
+[![Changelog][log-image]][log-url]
+[![Gitter Chat][git-image]][git-url]
 
-[PostCSS Transform Shortcut] is a [PostCSS] plugin that allows you to use shorthand transform properties in CSS, following the [CSS Transform Module Level 2 Specification](https://drafts.csswg.org/css-transforms-2/).
+[Transform Shortcut] lets you use shorthand transform properties in CSS, following the [CSS Transform Module Level 2 Specification].
 
 ```css
 /* before */
 
 .transform {
-    transform: skewX(25deg);
-    rotate: 180deg;
-    scale: 2 2;
-    translate: 10px 10px;
+	transform: skewX(25deg);
+	rotate: 180deg;
+	scale: 2 2;
+	translate: 10px 10px;
 }
 
 /* after */
 
 .transform {
-    transform: skewX(25deg) rotate3d(180deg,0,1) scale3d(2,2,1) translate3d(10px,10px,0px);
+	transform: skewX(25deg) rotate3d(180deg,0,1) scale3d(2,2,1) translate3d(10px,10px,0px);
 }
 
 ```
@@ -36,77 +40,109 @@ Once these new properties are supported natively, you can also use them to style
 
 ```css
 .button {
-    rotate: 45deg;
+	rotate: 45deg;
 }
 
 .button--warn {
-    scale: 2;
+	scale: 2;
 }
 ```
 
 ## Usage
 
-You just need to follow these two steps to use [PostCSS Transform Shortcut]:
+Add [Transform Shortcut] to your build tool:
 
-1. Add [PostCSS] to your build tool.
-2. Add [PostCSS Transform Shortcut] as a PostCSS process.
-
-```sh
-npm install postcss-transform-shortcut --save-dev
+```bash
+npm install jonathantneal/postcss-transform-shortcut --save-dev
 ```
 
-### Node
+#### Node
 
 ```js
-require('postcss-transform-shortcut')().process(your_css);
+require('postcss-transform-shortcut').process(YOUR_CSS, { /* options */ });
 ```
 
-### Grunt
+#### PostCSS
+
+Add [PostCSS] to your build tool:
+
+```bash
+npm install postcss --save-dev
+```
+
+Load [Transform Shortcut] as a PostCSS plugin:
+
+```js
+postcss([
+	require('postcss-transform-shortcut')({ /* options */ })
+]).process(YOUR_CSS, /* options */);
+```
+
+#### Gulp
+
+Add [Gulp PostCSS] to your build tool:
+
+```bash
+npm install gulp-postcss --save-dev
+```
+
+Enable [Transform Shortcut] within your Gulpfile:
+
+```js
+var postcss = require('gulp-postcss');
+
+gulp.task('css', function () {
+	return gulp.src('./src/*.css').pipe(
+		postcss([
+			require('postcss-transform-shortcut')({ /* options */ })
+		])
+	).pipe(
+		gulp.dest('.')
+	);
+});
+```
+
+#### Grunt
 
 Add [Grunt PostCSS] to your build tool:
 
-```sh
-npm install postcss-transform-shortcut --save-dev
+```bash
+npm install grunt-postcss --save-dev
 ```
 
-Enable [PostCSS Transform Shortcut] within your Gruntfile:
+Enable [Transform Shortcut] within your Gruntfile:
 
 ```js
 grunt.loadNpmTasks('grunt-postcss');
 
 grunt.initConfig({
-    postcss: {
-        options: {
-            processors: [
-                require('postcss-transform-shortcut')({ /* options */ })
-            ]
-        },
-        dist: {
-            src: 'css/*.css'
-        }
-    }
+	postcss: {
+		options: {
+			use: [
+				require('postcss-transform-shortcut')({ /* options */ })
+			]
+		},
+		dist: {
+			src: '*.css'
+		}
+	}
 });
 ```
 
-[ci]: https://travis-ci.org/jonathantneal/postcss-transform-shortcut
-[ci-img]: https://travis-ci.org/jonathantneal/postcss-transform-shortcut.svg
-[Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
+[npm-url]: https://www.npmjs.com/package/postcss-transform-shortcut
+[npm-img]: https://img.shields.io/npm/v/postcss-transform-shortcut.svg
+[cli-url]: https://travis-ci.org/jonathantneal/postcss-transform-shortcut
+[cli-img]: https://img.shields.io/travis/jonathantneal/postcss-transform-shortcut.svg
+[lic-url]: LICENSE.md
+[lic-image]: https://img.shields.io/npm/l/postcss-transform-shortcut.svg
+[log-url]: CHANGELOG.md
+[log-image]: https://img.shields.io/badge/changelog-md-blue.svg
+[git-url]: https://gitter.im/postcss/postcss
+[git-image]: https://img.shields.io/badge/chat-gitter-blue.svg
+
+[Transform Shortcut]: https://github.com/jonathantneal/postcss-transform-shortcut
 [PostCSS]: https://github.com/postcss/postcss
-[PostCSS Transform Shortcut]: https://github.com/jonathantneal/postcss-transform-shortcut
+[Gulp PostCSS]: https://github.com/postcss/gulp-postcss
+[Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
 
-### Gulp
-
-Run `npm install gulp-postcss postcss-transform-shortcut` and setup a gulp task like so:
-
-```js
-var gulp = require( 'gulp' );
-var postcss = require( 'gulp-postcss' );
-var independentTransforms = require('postcss-transform-shortcut');
-
-gulp.task( 'css', function() {
-    gulp.src( 'css-next.css' )
-        .pipe( postcss([independentTransforms]) )
-        .pipe( gulp.dest( 'build/' ) )
-});
-
-```
+[CSS Transform Module Level 2 Specification]: https://drafts.csswg.org/css-transforms-2/

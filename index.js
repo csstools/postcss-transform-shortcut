@@ -1,47 +1,69 @@
-var postcss = require('postcss');
+// tooling
+const postcss = require('postcss');
 
-module.exports = postcss.plugin('postcss-transform-shortcut', function (opts) {
-	opts = opts || {};
+// transform defaults
+const defaults = {
+	rotate:    [0, 0, 1, '0deg'],
+	scale:     [1, 1, 1],
+	translate: [0, 0, 0]
+};
 
-	var defaults = {
-		rotate:    [0, 0, 1],
-		scale:     [1, 1, 1],
-		translate: ['0px', '0px', '0px']
-	};
+// plugin
+module.exports = postcss.plugin('postcss-transform-shortcut', () => {
+	return (css) => {
+		// each each rule
+		css.walkRules((rule) => {
+			// recent transform declaration
+			let transform;
 
-	var splice = Array.prototype.splice;
+			// recent transform values
+			let values = [];
 
-	return function (css) {
-		css.walkRules(function (rule) {
-			var transform;
-			var transformValues = [];
-			var index = -1;
-			var node;
+			rule.nodes.slice(0).forEach((decl) => {
+				// whether the declaration is a transform
+				if (decl.prop === 'transform') {
+					// reset recent transform declaration
+					transform = decl;
 
-			while (node = rule.nodes[++index]) {
-				if (!transform && node.prop === 'transform') {
-					transform = node;
+					// reset recent transform values
+					values = postcss.list.space(decl.value);
+				} else if (/^(rotate|scale|translate)?$/.test(decl.prop)) {
+					// whether a transform declaration does not exist
+					if (!transform) {
+						// recent transform declaration is a modified clone of the shorthand
+						transform = decl.cloneBefore({
+							prop: 'transform'
+						});
+					}
 
-					transformValues = postcss.list.space(node.value);
-				} else if (/^(rotate|scale|translate)$/.test(node.prop)) {
-					transform = transform || node.cloneBefore({
-						prop: 'transform'
-					});
+					// new values from defaults
+					const newValues = defaults[decl.prop].slice(0);
 
-					var oldValues = postcss.list.space(node.value);
-					var newValues = defaults[node.prop].slice(0);
+					// current values from the current property
+					const currentValues = postcss.list.space(decl.value);
 
-					splice.apply(newValues, [0, oldValues.length].concat(oldValues));
+					// whether the property is rotate with one value
+					if (decl.prop === 'rotate' && currentValues.length === 1) {
+						// update the values
+						newValues.splice(-1, 1, ...currentValues);
+					} else {
+						// update the values
+						newValues.splice(0, currentValues.length, ...currentValues);
+					}
 
-					transformValues.push(node.prop + '3d(' + newValues.join(',') + ')');
+					// push the shorthand to transform values
+					values.push(decl.prop + '3d(' + newValues.join(',') + ')');
 
-					node.remove();
-
-					--index;
+					// remove the shorthand
+					decl.remove();
 				}
-			}
+			});
 
-			transform.value = transformValues.join(' ');
+			// whether there are transform values
+			if (values.length) {
+				// assign the transform values
+				transform.value = values.join(' ');
+			}
 		});
 	};
 });
